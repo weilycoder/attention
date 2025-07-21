@@ -24,7 +24,7 @@ struct Fraction {
   void simplify() {
     BigInt gcd = find_gcd(numerator, denominator);
     numerator /= gcd, denominator /= gcd;
-    if (denominator.sign < 0)
+    if (denominator.is_negative())
       numerator = -numerator, denominator = -denominator;
   }
 
