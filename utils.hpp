@@ -31,8 +31,10 @@ bool ensure_nonegative(const Fraction &a, const Fraction &b) { return a >= 0 && 
 bool ensure_nonegative(const Fraction &a, const Fraction &b, const Fraction &c) {
   if (c.is_zero())
     return ensure_nonegative(a, b);
+  if (a < 0 || a + b + c < 0)
+    return false;
   Fraction peak = -b / (2_frac * c);
-  return a >= 0 && a + b + c >= 0 && ((peak <= 0 || peak >= 1) || (a + b * peak + c * peak * peak >= 0));
+  return (peak <= 0 || peak >= 1) || (a + b * peak + c * peak * peak >= 0);
 }
 
 std::string power_latex(const std::string &base, size_t power) {
