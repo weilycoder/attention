@@ -28,10 +28,11 @@ struct Fraction {
       numerator = -numerator, denominator = -denominator;
   }
 
-  BigInt find_gcd(const BigInt &a, const BigInt &b) const {
-    if (b.is_zero())
-      return a;
-    return find_gcd(b, a % b);
+  static BigInt find_gcd(BigInt a, BigInt b) {
+    BigInt *x = &a, *y = &b;
+    for (; !y->is_zero(); std::swap(x, y))
+      *x %= *y;
+    return *x;
   }
 
   Fraction operator+(const Fraction &other) const {
