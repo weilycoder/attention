@@ -8,29 +8,29 @@
 using Poly_s = Poly<Symbol>;
 
 std::pair<Fraction, Fraction> solve_ab(const Symbol &eq1, const Symbol &eq2) {
-  Fraction a1 = eq1.get_coefficient("a");
-  Fraction b1 = eq1.get_coefficient("b");
-  Fraction a2 = eq2.get_coefficient("a");
-  Fraction b2 = eq2.get_coefficient("b");
-  Fraction c1 = eq1.get_coefficient("");
-  Fraction c2 = eq2.get_coefficient("");
+  Fraction a1 = eq1.get_coefficient('a');
+  Fraction b1 = eq1.get_coefficient('b');
+  Fraction a2 = eq2.get_coefficient('a');
+  Fraction b2 = eq2.get_coefficient('b');
+  Fraction c1 = eq1.get_coefficient(0);
+  Fraction c2 = eq2.get_coefficient(0);
 
   return solve2(a1, a2, b1, b2, c1, c2);
 }
 
 std::tuple<Fraction, Fraction, Fraction> solve_abc(const Symbol &eq1, const Symbol &eq2, const Symbol &eq3) {
-  Fraction a1 = eq1.get_coefficient("a");
-  Fraction b1 = eq1.get_coefficient("b");
-  Fraction c1 = eq1.get_coefficient("c");
-  Fraction a2 = eq2.get_coefficient("a");
-  Fraction b2 = eq2.get_coefficient("b");
-  Fraction c2 = eq2.get_coefficient("c");
-  Fraction a3 = eq3.get_coefficient("a");
-  Fraction b3 = eq3.get_coefficient("b");
-  Fraction c3 = eq3.get_coefficient("c");
-  Fraction d1 = eq1.get_coefficient("");
-  Fraction d2 = eq2.get_coefficient("");
-  Fraction d3 = eq3.get_coefficient("");
+  Fraction a1 = eq1.get_coefficient('a');
+  Fraction b1 = eq1.get_coefficient('b');
+  Fraction c1 = eq1.get_coefficient('c');
+  Fraction a2 = eq2.get_coefficient('a');
+  Fraction b2 = eq2.get_coefficient('b');
+  Fraction c2 = eq2.get_coefficient('c');
+  Fraction a3 = eq3.get_coefficient('a');
+  Fraction b3 = eq3.get_coefficient('b');
+  Fraction c3 = eq3.get_coefficient('c');
+  Fraction d1 = eq1.get_coefficient(0);
+  Fraction d2 = eq2.get_coefficient(0);
+  Fraction d3 = eq3.get_coefficient(0);
 
   return solve3(a1, a2, a3, b1, b2, b3, c1, c2, c3, d1, d2, d3);
 }

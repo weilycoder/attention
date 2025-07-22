@@ -20,7 +20,7 @@ std::pair<Symbol, Symbol> get_coeffs_e(const Poly_s &func) {
 
 // a + b*e >= 0
 std::tuple<size_t, Fraction, Fraction> solve_e(const Fraction &a, const Fraction &b, size_t limit = 32) {
-  Poly_s func{"a"_sym, "b"_sym}; // a + b*x
+  Poly_s func{'a'_sym, 'b'_sym}; // a + b*x
   for (size_t n = 0; n <= limit; ++n) {
     // A + B*e
     auto [A, B] = get_coeffs_e(func);
@@ -32,7 +32,7 @@ std::tuple<size_t, Fraction, Fraction> solve_e(const Fraction &a, const Fraction
     } catch (const std::runtime_error &e) {
       // Ignore errors, continue searching
     }
-    func = Poly_s{1_sint, -1_sint} * func, func.lshift();
+    func = Poly_s{1_sym, -1_sym} * func, func.lshift();
   }
   throw std::runtime_error("No solution found within the limit of " + std::to_string(limit));
 }

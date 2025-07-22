@@ -9,17 +9,17 @@
 #include "fraction.hpp"
 
 struct Symbol {
-  std::map<std::string, Fraction> variables;
+  std::map<char, Fraction> variables;
 
   Symbol() = default;
-  Symbol(const Fraction &value) { variables[""] = value; }
-  Symbol(const std::string &name) { variables[name] = Fraction(1); }
-  Symbol(const std::string &name, const Fraction &coefficient) {
+  Symbol(const Fraction &value) { variables[0] = value; }
+  Symbol(const char name) { variables[name] = Fraction(1); }
+  Symbol(const char name, const Fraction &coefficient) {
     if (!coefficient.is_zero())
       variables[name] = coefficient;
   }
 
-  void add_variable(const std::string &name, const Fraction &coefficient) {
+  void add_variable(const char name, const Fraction &coefficient) {
     if (coefficient.is_zero())
       return; // Ignore zero coefficients
     if (variables.find(name) != variables.end())
@@ -33,12 +33,12 @@ struct Symbol {
   bool is_number() const {
     if (variables.size() == 0)
       return true;
-    if (variables.size() == 1 && variables.begin()->first.empty())
+    if (variables.size() == 1 && variables.begin()->first == 0)
       return true;
     return false;
   }
 
-  Fraction get_coefficient(const std::string &name) const {
+  Fraction get_coefficient(const char name) const {
     auto it = variables.find(name);
     if (it != variables.end())
       return it->second;
@@ -48,14 +48,14 @@ struct Symbol {
   Fraction get_value() const {
     if (variables.size() == 0)
       return Fraction(0);
-    if (variables.size() == 1 && variables.begin()->first.empty())
+    if (variables.size() == 1 && variables.begin()->first == 0)
       return variables.begin()->second;
     throw std::runtime_error("Symbol is not a number.");
   }
 
   bool is_zero() const { return variables.size() == 0; }
 
-  const std::map<std::string, Fraction> &get_variables() const { return variables; }
+  const std::map<char, Fraction> &get_variables() const { return variables; }
 
   Symbol operator+() const {
     return *this; // Unary plus does not change the symbol
@@ -152,13 +152,13 @@ struct Symbol {
     throw std::runtime_error("Cannot divide by a symbol.");
   }
 
-  static std::string to_string(const std::pair<std::string, Fraction> &pair) {
-    if (pair.first.empty())
+  static std::string to_string(const std::pair<char, Fraction> &pair) {
+    if (pair.first == 0) // Special case for constant term
       return pair.second.to_string();
     if (pair.second.is_one())
-      return pair.first; // Just the variable name if coefficient is 1
+      return std::string(1, pair.first); // Just the variable name if coefficient is 1
     if (pair.second.is_minus_one())
-      return "-" + pair.first; // Just the negative variable name if coefficient is -1
+      return "-" + std::string(1, pair.first); // Just the negative variable name if coefficient is -1
     return pair.second.to_string() + " * " + pair.first; // Coefficient and variable name
   }
 
@@ -177,9 +177,9 @@ struct Symbol {
   explicit operator bool() const { return !is_zero(); }
 };
 
-Symbol operator""_sym(const char *s, size_t) { return Symbol(std::string(s)); }
-Symbol operator""_sint(const char *s, size_t) { return Symbol(Fraction(BigInt(s))); }
-Symbol operator""_sint(unsigned long long v) { return Symbol(Fraction(BigInt(v))); }
+Symbol operator""_sym(char c) { return Symbol(c); }
+Symbol operator""_sym(const char *s, size_t) { return Symbol(BigInt(s)); }
+Symbol operator""_sym(unsigned long long v) { return Symbol(BigInt(v)); }
 
 namespace std {
 std::string to_string(const Symbol &symbol) { return symbol.to_string(); }
