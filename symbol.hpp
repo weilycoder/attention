@@ -2,16 +2,11 @@
 #define SYMBOL_HPP
 
 #include <map>
-#include <stdexcept>
 #include <string>
 #include <utility>
 
+#include "except.hpp"
 #include "fraction.hpp"
-
-class not_implemented : public std::logic_error {
-public:
-  explicit not_implemented(const std::string &feature) : logic_error(feature + " not implemented") {}
-};
 
 struct Symbol {
   std::map<char, Fraction> variables;
