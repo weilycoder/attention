@@ -1,9 +1,6 @@
 #ifndef INTE_PI_HPP
 #define INTE_PI_HPP
 
-#include <stdexcept>
-#include <tuple>
-
 #include "utils.hpp"
 
 // Integrate[P(x) / (1 + x^2), {x, 0, 1}] = A + B*ln(2) + C*pi
