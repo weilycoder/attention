@@ -19,7 +19,7 @@ std::pair<Symbol, Symbol> get_coeffs_e(const Poly_s &func) {
 }
 
 // a + b*e >= 0
-std::tuple<size_t, Fraction, Fraction> solve_e(const Fraction &a, const Fraction &b, size_t limit = 32) {
+std::tuple<size_t, Fraction, Fraction> solve_e(const Fraction &a, const Fraction &b, size_t limit = 64) {
   Poly_s func{'a'_sym, 'b'_sym}; // a + b*x
   for (size_t n = 0; n <= limit; ++n) {
     // A + B*e

@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[]) {
   using namespace std;
-  size_t limit = 32;
+  size_t limit = 64;
   string tp;
   switch (argc) {
   case 5:
@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     tp = argv[1];
     break;
   default:
-    cerr << "Usage: solve <type> <B> <A> [<limit=32>]" << endl;
+    cerr << "Usage: solve <type> <B> <A> [<limit=64>]" << endl;
     return 1;
   }
   try {

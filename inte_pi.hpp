@@ -30,7 +30,7 @@ std::tuple<Symbol, Symbol, Symbol> get_coeffs_pi(const Poly_s &func) {
 
 // a + b*pi >= 0
 std::tuple<size_t, Fraction, Fraction, Fraction> solve_pi(const Fraction &a, const Fraction &b,
-                                                          size_t limit = 32) {
+                                                          size_t limit = 64) {
   Poly_s func{'a'_sym, 'b'_sym, 'c'_sym}; // a + b*x + c*x^2
   for (size_t n = 0; n <= limit; ++n) {
     // A + B*ln(2) + C*pi
