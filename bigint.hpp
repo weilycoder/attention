@@ -194,7 +194,7 @@ protected:
     if (n >= size())
       return r;
     r.v.assign(v.begin() + n, v.end());
-    return BIGINT_STD_MOVE(r);
+    return r;
   }
   BigInt_t &raw_shl(size_t n) {
     if (n == 0 || is_zero())
@@ -357,7 +357,7 @@ public:
       r.raw_add(b);
     else
       r.raw_sub(b);
-    return BIGINT_STD_MOVE(r);
+    return r;
   }
   BigInt_t operator-(const BigInt_t &b) const {
     BigInt_t r = *this;
@@ -365,24 +365,24 @@ public:
       r.raw_add(b);
     else
       r.raw_sub(b);
-    return BIGINT_STD_MOVE(r);
+    return r;
   }
   BigInt_t operator-() const {
     BigInt_t r = *this;
     r.sign = -r.sign;
-    return BIGINT_STD_MOVE(r);
+    return r;
   }
   BigInt_t operator*(const BigInt_t &b) const {
     BigInt_t r;
     r.raw_mul_karatsuba(*this, b);
     r.sign = sign * b.sign;
-    return BIGINT_STD_MOVE(r);
+    return r;
   }
   BigInt_t operator/(const BigInt_t &b) const {
     BigInt_t r, d;
     d.raw_dividediv(*this, b, r);
     d.sign = sign * b.sign;
-    return BIGINT_STD_MOVE(d);
+    return d;
   }
   BigInt_t operator%(const BigInt_t &b) const { return BIGINT_STD_MOVE(*this - *this / b * b); }
   BigInt_t div(const BigInt_t &b, BigInt_t &r) {
@@ -393,7 +393,7 @@ public:
     BigInt_t d;
     d.raw_dividediv(*this, b, r);
     d.sign = sign * b.sign;
-    return BIGINT_STD_MOVE(d);
+    return d;
   }
 
   BigInt_t &operator+=(const BigInt_t &b) { return *this = *this + b; }
