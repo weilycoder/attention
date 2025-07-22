@@ -45,4 +45,36 @@ std::string power_latex(const std::string &base, size_t power) {
   return base + "^{" + std::to_string(power) + "}";
 }
 
+std::string quadratic_latex(const Fraction &a, const Fraction &b, const Fraction &c,
+                            const std::string &var = "x") {
+  std::vector<std::string> parts;
+  if (!a.is_zero())
+    parts.push_back(a.to_latex("\\dfrac"));
+  if (!b.is_zero()) {
+    if (parts.empty())
+      parts.push_back(b.to_latex_coeff(var, "\\dfrac"));
+    else
+      parts.push_back(b.to_latex_sign_coeff(var, "\\dfrac"));
+  }
+  if (!c.is_zero()) {
+    if (parts.empty())
+      parts.push_back(c.to_latex_coeff(power_latex(var, 2), "\\dfrac"));
+    else
+      parts.push_back(c.to_latex_sign_coeff(power_latex(var, 2), "\\dfrac"));
+  }
+  switch (parts.size()) {
+  case 0:
+    throw std::runtime_error("All coefficients are zero.");
+  case 1:
+    return parts[0];
+  case 2:
+    return "\\left(" + parts[0] + parts[1] + "\\right)";
+  case 3:
+    return "\\left(" + parts[0] + parts[1] + parts[2] + "\\right)";
+  default:
+    break; // Should not happen
+  }
+  throw std::runtime_error("Unexpected number of parts: " + std::to_string(parts.size()));
+}
+
 #endif // UTILS_HPP
