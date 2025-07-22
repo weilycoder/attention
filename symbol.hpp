@@ -12,7 +12,10 @@ struct Symbol {
   std::map<char, Fraction> variables;
 
   Symbol() = default;
-  Symbol(const Fraction &value) { variables[0] = value; }
+  Symbol(const Fraction &value) {
+    if (!value.is_zero())
+      variables[0] = value; // Use 0 as a special key for constant terms
+  }
   Symbol(const char name) { variables[name] = Fraction(1); }
   Symbol(const char name, const Fraction &coefficient) {
     if (!coefficient.is_zero())
@@ -179,7 +182,7 @@ struct Symbol {
 
 Symbol operator""_sym(char c) { return Symbol(c); }
 Symbol operator""_sym(const char *s, size_t) { return Symbol(BigInt(s)); }
-Symbol operator""_sym(unsigned long long v) { return Symbol(BigInt((uintmax_t)v)); }
+Symbol operator""_sym(unsigned long long v) { return v? Symbol(BigInt((uintmax_t)v)): Symbol(); }
 
 namespace std {
 std::string to_string(const Symbol &symbol) { return symbol.to_string(); }
