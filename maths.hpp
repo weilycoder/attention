@@ -9,6 +9,13 @@
 #include "except.hpp"
 #include "fraction.hpp"
 
+const BigInt &two_power(uint64_t n) {
+  static std::vector<BigInt> cache{1_big};
+  while (cache.size() <= n)
+    cache.emplace_back(cache.back() * 2_big);
+  return cache[n];
+}
+
 const BigInt &minus_one_power(uint64_t n) {
   static const BigInt one(1), minus_one(-1);
   return (n & 1) ? minus_one : one;
@@ -31,7 +38,7 @@ const BigInt &factorial(int64_t n) {
   return gamma(n + 1);
 }
 
-// Zeta function for even integers (the result won't contain pi^(2k))
+// Zeta function for even integers (the result won't contain pi^n)
 const Fraction &zeta(int64_t n) {
   if (n <= 1)
     throw std::domain_error("Zeta function is not defined for n <= 1.");
@@ -52,6 +59,34 @@ const Fraction &zeta(int64_t n) {
         break;
       case 1:
         cache.back() += cache[k - i] / factorial(2 * i + 1);
+        break;
+      default:
+        __builtin_unreachable();
+      }
+    }
+  }
+  return cache[n];
+}
+
+// Dirichlet beta function for odd integers (the result won't contain pi^n)
+const Fraction &beta(int64_t n) {
+  if (n <= 0)
+    throw std::domain_error("Beta function is not defined for non-positive integers.");
+  if (!(n & 1))
+    throw not_implemented("Beta function for even n");
+  n >>= 1; // Beta(2n + 1)
+  static std::vector<Fraction> cache{Fraction(1, 4)};
+  if (n < cache.size())
+    return cache[n];
+  for (size_t k = cache.size(); k <= n; ++k) {
+    cache.emplace_back();
+    for (size_t m = 1; m <= k; ++m) {
+      switch (m & 1) {
+      case 0:
+        cache.back() -= cache[k - m] / (factorial(2 * m) * two_power(2 * m));
+        break;
+      case 1:
+        cache.back() += cache[k - m] / (factorial(2 * m) * two_power(2 * m));
         break;
       default:
         __builtin_unreachable();
