@@ -31,7 +31,7 @@ solve <type> <B> <A> [<limit=64>]
 
 目前实现了 $3$ 类积分证明。
 
-输出积分的 Latex 不一定简洁美观，请自行调整。
+输出积分的 Latex 不一定简洁美观，请自行调整；其中自然对数的 $\mathrm{e}$ 与微分 $\mathrm{d}x$ 中的 $\mathrm{d}$ 均为使用 `\mathrm` 的**正体符号**，可能对某些 Latex 解析程序有影响。
 
 ### A + B * Pi
 
