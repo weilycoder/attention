@@ -2,7 +2,8 @@
 #include "inte_pi.hpp"
 #include <iostream>
 
-// Test: solve_pi -4738167652 14885392687
+// Test: solve pi -4738167652 14885392687
+//       solve e -71 193
 
 int main(int argc, char *argv[]) {
   using namespace std;
