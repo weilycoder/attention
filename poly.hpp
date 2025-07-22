@@ -62,7 +62,9 @@ template <typename T> struct Poly {
         remainder.coeffs[remainder.coeffs.size() - 1 - i] -=
             coeff * other.coeffs[other.coeffs.size() - 1 - i];
       quotient.coeffs.emplace_back(coeff);
-      remainder.simplify();
+      if ((bool)remainder.coeffs.back())
+        throw std::logic_error("Unexpected non-zero remainder in divmod.");
+      remainder.coeffs.pop_back();
     }
     std::reverse(quotient.coeffs.begin(), quotient.coeffs.end());
     return {quotient, remainder};
