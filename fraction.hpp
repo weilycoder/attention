@@ -17,7 +17,7 @@ struct Fraction {
   Fraction(const BigInt &num) : numerator(num), denominator(1) {}
   Fraction(const BigInt &num, const BigInt &den) : numerator(num), denominator(den) {
     if (denominator.is_zero())
-      throw std::runtime_error("Denominator cannot be zero.");
+      throw std::domain_error("Denominator cannot be zero.");
     simplify();
   }
 

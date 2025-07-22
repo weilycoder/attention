@@ -34,6 +34,27 @@ int main(int argc, char *argv[]) {
   } catch (const std::runtime_error &e) {
     cerr << "std::runtime_error: " << e.what() << endl;
     return 1;
+  } catch (const std::invalid_argument &e) {
+    cerr << "std::invalid_argument: " << e.what() << endl;
+    return 2;
+  } catch (const std::out_of_range &e) {
+    cerr << "std::out_of_range: " << e.what() << endl;
+    return 2;
+  } catch (const std::domain_error &e) {
+    cerr << "std::domain_error: " << e.what() << endl;
+    return 2;
+  } catch (const not_implemented &e) {
+    cerr << "not_implemented: " << e.what() << endl;
+    return 3;
+  } catch (const std::logic_error &e) {
+    cerr << "std::logic_error: " << e.what() << endl;
+    return 3;
+  } catch (const std::bad_alloc &e) {
+    cerr << "std::bad_alloc: " << e.what() << endl;
+    return 3;
+  } catch (const std::exception &e) {
+    cerr << "std::exception: " << e.what() << endl;
+    return 3;
   } catch (...) {
     cerr << "An unexpected error occurred." << endl;
     return 3;

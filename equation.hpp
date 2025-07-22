@@ -13,7 +13,7 @@ template <typename T>
 inline std::pair<T, T> solve2(const T &a1, const T &a2, const T &b1, const T &b2, const T &c1, const T &c2) {
   T D = determinant2(a1, a2, b1, b2);
   if (!bool(D))
-    throw std::runtime_error("No unique solution exists for the system of equations.");
+    throw std::domain_error("No unique solution exists for the system of equations.");
   T A = determinant2(c1, c2, b1, b2);
   T B = determinant2(a1, a2, c1, c2);
   return {-A / D, -B / D};
@@ -31,7 +31,7 @@ inline std::tuple<T, T, T> solve3(const T &a1, const T &a2, const T &a3, const T
                                   const T &d2, const T &d3) {
   T D = determinant3(a1, a2, a3, b1, b2, b3, c1, c2, c3);
   if (!bool(D))
-    throw std::runtime_error("No unique solution exists for the system of equations.");
+    throw std::domain_error("No unique solution exists for the system of equations.");
   T A = determinant3(d1, d2, d3, b1, b2, b3, c1, c2, c3);
   T B = determinant3(a1, a2, a3, d1, d2, d3, c1, c2, c3);
   T C = determinant3(a1, a2, a3, b1, b2, b3, d1, d2, d3);

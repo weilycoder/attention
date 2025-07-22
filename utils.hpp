@@ -67,7 +67,7 @@ std::string linear_latex(const Fraction &a, const Fraction &b, const std::string
       parts.push_back(b.to_latex_sign_coeff(var, "\\dfrac"));
   }
   if (parts.empty())
-    throw std::runtime_error("Both coefficients are zero.");
+    throw std::domain_error("Both coefficients are zero.");
   if (parts.size() == 1)
     return parts[0];
   return "\\left(" + parts[0] + parts[1] + "\\right)";
@@ -92,7 +92,7 @@ std::string quadratic_latex(const Fraction &a, const Fraction &b, const Fraction
   }
   switch (parts.size()) {
   case 0:
-    throw std::runtime_error("All coefficients are zero.");
+    throw std::domain_error("All coefficients are zero.");
   case 1:
     return parts[0];
   case 2:
@@ -102,7 +102,7 @@ std::string quadratic_latex(const Fraction &a, const Fraction &b, const Fraction
   default:
     break; // Should not happen
   }
-  throw std::runtime_error("Unexpected number of parts: " + std::to_string(parts.size()));
+  throw std::logic_error("Unexpected number of parts: " + std::to_string(parts.size()));
 }
 
 #endif // UTILS_HPP

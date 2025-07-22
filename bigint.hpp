@@ -284,6 +284,8 @@ protected:
 
     int32_t d = digits, hdigit = 0, hdigit_mul = 1;
     for (; p >= s; p--) {
+      if (*p < '0' || *p > '9')
+        throw std::invalid_argument("Invalid character in BigInt string: " + std::string(p, 1));
       hdigit += (*p - '0') * hdigit_mul;
       hdigit_mul *= base;
       if (--d == 0) {

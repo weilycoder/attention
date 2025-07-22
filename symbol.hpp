@@ -8,6 +8,11 @@
 
 #include "fraction.hpp"
 
+class not_implemented : public std::logic_error {
+public:
+  explicit not_implemented(const std::string &feature) : logic_error(feature + " not implemented") {}
+};
+
 struct Symbol {
   std::map<char, Fraction> variables;
 
@@ -92,12 +97,12 @@ struct Symbol {
       return *this * other.get_value();
     if (this->is_number())
       return other * this->get_value();
-    throw std::runtime_error("Cannot multiply two symbols directly.");
+    throw not_implemented("Multiplication of two symbols");
   }
 
   Symbol operator/(const Fraction &other) const {
     if (other.is_zero())
-      throw std::runtime_error("Division by zero.");
+      throw std::domain_error("Division by zero.");
     Symbol result;
     for (const auto &pair : variables)
       result.add_variable(pair.first, pair.second / other);
@@ -106,7 +111,7 @@ struct Symbol {
   Symbol operator/(const Symbol &other) const {
     if (other.is_number())
       return *this / other.get_value();
-    throw std::runtime_error("Cannot divide by a symbol.");
+    throw not_implemented("Division by a symbol");
   }
 
   Symbol &operator+=(const Symbol &other) {
@@ -134,12 +139,12 @@ struct Symbol {
       return *this *= other.get_value();
     if (this->is_number())
       return *this = other * this->get_value();
-    throw std::runtime_error("Cannot multiply two symbols directly.");
+    throw not_implemented("Multiplication of two symbols");
   }
 
   Symbol &operator/=(const Fraction &other) {
     if (other.is_zero())
-      throw std::runtime_error("Division by zero.");
+      throw std::domain_error("Division by zero.");
     if (other.is_one())
       return *this; // No change if divided by one
     for (auto &pair : variables)
@@ -149,7 +154,7 @@ struct Symbol {
   Symbol &operator/=(const Symbol &other) {
     if (other.is_number())
       return *this /= other.get_value();
-    throw std::runtime_error("Cannot divide by a symbol.");
+    throw not_implemented("Division by a symbol");
   }
 
   static std::string to_string(const std::pair<char, Fraction> &pair) {

@@ -29,12 +29,12 @@ std::tuple<size_t, Fraction, Fraction> solve_e(const Fraction &a, const Fraction
       auto [a, b] = solve_ab(A, B);
       if (ensure_nonegative(a, b))
         return {n, a, b};
-    } catch (const std::runtime_error &e) {
+    } catch (const std::domain_error &e) {
       // Ignore errors, continue searching
     }
     func = Poly_s{1_sym, -1_sym} * func, func.lshift();
   }
-  throw std::runtime_error("No solution found within the limit of " + std::to_string(limit));
+  throw std::domain_error("No solution found within the limit of " + std::to_string(limit));
 }
 
 // \int_{0}^{1}x^{n}\left(1-x\right)^{m}\left(a+bx\right)\mathrm{e}^{x}\mathrm{d}x

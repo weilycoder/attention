@@ -22,7 +22,7 @@ std::tuple<Symbol, Symbol, Symbol> get_coeffs_pi(const Poly_s &func) {
       B = r.coeffs[1] / 2_frac;
       break;
     default:
-      throw std::runtime_error("Unexpected coefficient index: " + std::to_string(i));
+      throw std::logic_error("Unexpected coefficient index: " + std::to_string(i));
     }
   }
   return {A, B, C};
@@ -40,12 +40,12 @@ std::tuple<size_t, Fraction, Fraction, Fraction> solve_pi(const Fraction &a, con
       auto [a, b, c] = solve_abc(A, B, C);
       if (ensure_nonegative(a, b, c))
         return {n, a, b, c};
-    } catch (const std::runtime_error &e) {
+    } catch (const std::domain_error &e) {
       // Ignore errors, continue searching
     }
     func = Poly_s{1_sym, -1_sym} * func, func.lshift();
   }
-  throw std::runtime_error("No solution found within the limit of " + std::to_string(limit));
+  throw std::domain_error("No solution found within the limit of " + std::to_string(limit));
 }
 
 // \int_{0}^{1}\dfrac{x^{n}\left(1-x\right)^{m}\left(a+bx+cx^{2}\right)}{1+x^{2}}\mathrm{d}x
