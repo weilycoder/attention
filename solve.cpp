@@ -7,20 +7,23 @@
 
 int main(int argc, char *argv[]) {
   using namespace std;
-  size_t limit = 64;
-  string tp;
-  switch (argc) {
-  case 5:
-    limit = stoul(argv[4]);
-    [[fallthrough]];
-  case 4:
-    tp = argv[1];
-    break;
-  default:
-    cerr << "Usage: solve <type> <B> <A> [<limit=64>]" << endl;
-    return 1;
-  }
+
   try {
+    size_t limit = 64;
+    string tp;
+
+    switch (argc) {
+    case 5:
+      limit = stoul(argv[4]);
+      [[fallthrough]];
+    case 4:
+      tp = argv[1];
+      break;
+    default:
+      cerr << "Usage: solve <type> <B> <A> [<limit=64>]" << endl;
+      return 1;
+    }
+
     if (tp == "pi") {
       auto [n, a, b, c] = solve_pi(BigInt(argv[3]), BigInt(argv[2]), limit);
       cout << ans_to_latex_pi(n, n, a, b, c) << endl;
@@ -31,6 +34,7 @@ int main(int argc, char *argv[]) {
       cerr << "Unknown type: " << tp << endl;
       return 1;
     }
+
   } catch (const std::runtime_error &e) {
     cerr << "std::runtime_error: " << e.what() << endl;
     return 1;
@@ -59,5 +63,6 @@ int main(int argc, char *argv[]) {
     cerr << "An unexpected error occurred." << endl;
     return 3;
   }
+
   return 0;
 }
