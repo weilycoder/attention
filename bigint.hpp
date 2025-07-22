@@ -7,6 +7,7 @@
 #define BIGINT_MINI_HPP
 
 #include "bigint_header.hpp"
+#include <stdexcept>
 
 namespace BigIntMiniNS {
 const int32_t COMPRESS_MOD = 10000;
