@@ -7,6 +7,17 @@
 
 using Poly_s = Poly<Symbol>;
 
+std::pair<Fraction, Fraction> solve_ab(const Symbol &eq1, const Symbol &eq2) {
+  Fraction a1 = eq1.get_coefficient("a");
+  Fraction b1 = eq1.get_coefficient("b");
+  Fraction a2 = eq2.get_coefficient("a");
+  Fraction b2 = eq2.get_coefficient("b");
+  Fraction c1 = eq1.get_coefficient("");
+  Fraction c2 = eq2.get_coefficient("");
+
+  return solve2(a1, a2, b1, b2, c1, c2);
+}
+
 std::tuple<Fraction, Fraction, Fraction> solve_abc(const Symbol &eq1, const Symbol &eq2, const Symbol &eq3) {
   Fraction a1 = eq1.get_coefficient("a");
   Fraction b1 = eq1.get_coefficient("b");
@@ -43,6 +54,23 @@ std::string power_latex(const std::string &base, size_t power) {
   if (power == 1)
     return base;
   return base + "^{" + std::to_string(power) + "}";
+}
+
+std::string linear_latex(const Fraction &a, const Fraction &b, const std::string &var = "x") {
+  std::vector<std::string> parts;
+  if (!a.is_zero())
+    parts.push_back(a.to_latex("\\dfrac"));
+  if (!b.is_zero()) {
+    if (parts.empty())
+      parts.push_back(b.to_latex_coeff(var, "\\dfrac"));
+    else
+      parts.push_back(b.to_latex_sign_coeff(var, "\\dfrac"));
+  }
+  if (parts.empty())
+    throw std::runtime_error("Both coefficients are zero.");
+  if (parts.size() == 1)
+    return parts[0];
+  return "\\left(" + parts[0] + parts[1] + "\\right)";
 }
 
 std::string quadratic_latex(const Fraction &a, const Fraction &b, const Fraction &c,
