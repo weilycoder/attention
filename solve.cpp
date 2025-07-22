@@ -1,5 +1,6 @@
 #include "inte_e.hpp"
 #include "inte_pi.hpp"
+#include "inte_pi_pow_n.hpp"
 #include <iostream>
 
 // Test: solve pi -4738167652 14885392687
@@ -30,6 +31,10 @@ int main(int argc, char *argv[]) {
     } else if (tp == "e") {
       auto [n, a, b] = solve_e(BigInt(argv[3]), BigInt(argv[2]), limit);
       cout << ans_to_latex_e(n, n, a, b) << endl;
+    } else if (tp.length() > 9 && tp.substr(0, 9) == "pi_power_" && tp[9] > '0' && tp[9] <= '9') {
+      size_t n = stoull(tp.substr(9));
+      auto [m, a, b] = solve_pi_pow_n(BigInt(argv[3]), BigInt(argv[2]), n, limit);
+      cout << ans_to_latex_pi_pow_n(n, m, a, b) << endl;
     } else {
       cerr << "Unknown type: " << tp << endl;
       return 1;
