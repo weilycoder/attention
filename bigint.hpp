@@ -308,6 +308,7 @@ public:
   BigIntMini(intmax_t n) { set(n); }
   BigIntMini(uintmax_t n) { set(n); }
   explicit BigIntMini(const char *s) { from_str(s); }
+  explicit BigIntMini(const std::string &s) { from_str(s.c_str()); }
   BigInt_t &set(uintmax_t n) {
     v.resize(1), v[0] = 0, sign = 1;
     for (int i = 0; n; ++i)
