@@ -7,9 +7,9 @@
 #include "utils.hpp"
 
 // Integrate[P(x) / (1 + x^2), {x, 0, 1}] = A + B*ln(2) + C*pi
-std::tuple<Symbol, Symbol, Symbol> get_coeffs_pi(const Poly_s &nume) {
+std::tuple<Symbol, Symbol, Symbol> get_coeffs_pi(const Poly_s &func) {
   Poly_s deno = Poly_s({1_sint, 0_sint, 1_sint}); // 1 + x^2
-  auto [q, r] = nume.divmod(deno);
+  auto [q, r] = func.divmod(deno);
   Symbol A, B, C;
   for (size_t i = 0; i < q.coeffs.size(); ++i)
     // Integrate[q * x^i, {x, 0, 1}]
@@ -34,10 +34,10 @@ std::tuple<Symbol, Symbol, Symbol> get_coeffs_pi(const Poly_s &nume) {
 // a + b*pi >= 0
 std::tuple<size_t, Fraction, Fraction, Fraction> solve_pi(const Fraction &a, const Fraction &b,
                                                           size_t limit = 32) {
-  Poly_s nume{"a"_sym, "b"_sym, "c"_sym}; // a + b*x + c*x^2
+  Poly_s func{"a"_sym, "b"_sym, "c"_sym}; // a + b*x + c*x^2
   for (size_t n = 0; n <= limit; ++n) {
     // A + B*ln(2) + C*pi
-    auto [A, B, C] = get_coeffs_pi(nume);
+    auto [A, B, C] = get_coeffs_pi(func);
     A -= Symbol(a), C -= Symbol(b);
     try {
       auto [a, b, c] = solve_abc(A, B, C);
@@ -46,7 +46,7 @@ std::tuple<size_t, Fraction, Fraction, Fraction> solve_pi(const Fraction &a, con
     } catch (const std::runtime_error &e) {
       // Ignore errors, continue searching
     }
-    nume = Poly_s{1_sint, -1_sint} * nume, nume.lshift();
+    func = Poly_s{1_sint, -1_sint} * func, func.lshift();
   }
   throw std::runtime_error("No solution found within the limit of " + std::to_string(limit));
 }
