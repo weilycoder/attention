@@ -9,6 +9,14 @@
 #include "except.hpp"
 #include "fraction.hpp"
 
+BigInt fast_pow(BigInt base, uint64_t exp) {
+  BigInt result(1);
+  for (; exp; exp >>= 1, base *= base)
+    if (exp & 1)
+      result *= base;
+  return result;
+}
+
 const BigInt &two_power(uint64_t n) {
   static std::vector<BigInt> cache{1_big};
   while (cache.size() <= n)
