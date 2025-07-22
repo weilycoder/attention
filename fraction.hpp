@@ -123,7 +123,7 @@ struct Fraction {
   }
 };
 
-Fraction operator""_frac(unsigned long long num) { return Fraction(BigInt(num)); }
+Fraction operator""_frac(unsigned long long num) { return Fraction(BigInt((uintmax_t)num)); }
 
 namespace std {
 std::string to_string(const Fraction &f) { return f.to_string(); }

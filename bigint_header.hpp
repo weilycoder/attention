@@ -54,4 +54,4 @@ typedef int64_t intmax_t;
   bool operator>=(const T &b) const { return !(*this < b); }                                                 \
   bool operator!=(const T &b) const { return !(*this == b); }
 
-#endif  // BIGINT_HEADER_HPP
+#endif // BIGINT_HEADER_HPP

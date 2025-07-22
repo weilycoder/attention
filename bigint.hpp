@@ -92,7 +92,7 @@ protected:
   }
   BigInt_t &raw_mul_int(uint32_t m) {
     if (m == 0) {
-      set(0ull);
+      set((uintmax_t)0);
       return *this;
     } else if (m == 1)
       return *this;
@@ -142,7 +142,7 @@ protected:
   BigInt_t &raw_div(const BigInt_t &a, const BigInt_t &b, BigInt_t &r) {
     r = a;
     if (a.raw_less(b)) {
-      return set(0ull);
+      return set((uintmax_t)0);
     }
     v.clear();
     v.resize(a.size() - b.size() + 1);
@@ -183,7 +183,7 @@ protected:
     if (n == 0)
       return *this;
     if (n >= size()) {
-      set(0ull);
+      set((uintmax_t)0);
       return *this;
     }
     v.erase(v.begin(), v.begin() + n);
@@ -205,7 +205,7 @@ protected:
   BigInt_t &raw_dividediv_recursion(const BigInt_t &a, const BigInt_t &b, BigInt_t &r) {
     if (a < b) {
       r = a;
-      return set(0ull);
+      return set((uintmax_t)0);
     } else if (b.size() <= BIGINT_DIVIDEDIV_THRESHOLD) {
       return raw_div(a, b, r);
     }
@@ -302,7 +302,7 @@ protected:
   }
 
 public:
-  BigIntMini() { set(0ull); }
+  BigIntMini() { set((uintmax_t)0); }
   BigIntMini(int n) { set((intmax_t)n); }
   BigIntMini(intmax_t n) { set(n); }
   BigIntMini(uintmax_t n) { set(n); }
@@ -387,8 +387,8 @@ public:
   BigInt_t operator%(const BigInt_t &b) const { return BIGINT_STD_MOVE(*this - *this / b * b); }
   BigInt_t div(const BigInt_t &b, BigInt_t &r) {
     if (this == &b) {
-      r.set(0ull);
-      return set(1ull);
+      r.set((uintmax_t)0);
+      return set((uintmax_t)1);
     }
     BigInt_t d;
     d.raw_dividediv(*this, b, r);
@@ -462,6 +462,6 @@ public:
 using BigInt = BigIntMiniNS::BigIntMini;
 
 BigInt operator""_big(const char *s, size_t) { return BigInt(s); }
-BigInt operator""_big(unsigned long long v) { return BigInt(v); }
+BigInt operator""_big(unsigned long long v) { return BigInt((uintmax_t)v); }
 
 #endif // BIGINT_MINI_HPP

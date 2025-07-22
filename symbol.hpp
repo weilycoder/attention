@@ -184,7 +184,7 @@ struct Symbol {
 
 Symbol operator""_sym(char c) { return Symbol(c); }
 Symbol operator""_sym(const char *s, size_t) { return Symbol(BigInt(s)); }
-Symbol operator""_sym(unsigned long long v) { return Symbol(BigInt(v)); }
+Symbol operator""_sym(unsigned long long v) { return Symbol(BigInt((uintmax_t)v)); }
 
 namespace std {
 std::string to_string(const Symbol &symbol) { return symbol.to_string(); }
