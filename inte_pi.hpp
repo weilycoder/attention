@@ -1,11 +1,8 @@
 #ifndef INTE_PI_HPP
 #define INTE_PI_HPP
 
-#include <iostream>
 #include <stdexcept>
 #include <tuple>
-#include <utility>
-#include <vector>
 
 #include "utils.hpp"
 
