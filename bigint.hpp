@@ -410,7 +410,7 @@ public:
     d.sign = sign * b.sign;
     return d;
   }
-  BigInt_t operator%(const BigInt_t &b) const { return BIGINT_STD_MOVE(*this - *this / b * b); }
+  BigInt_t operator%(const BigInt_t &b) const { return *this - *this / b * b; }
   BigInt_t div(const BigInt_t &b, BigInt_t &r) {
     if (this == &b) {
       r.set((uintmax_t)0);

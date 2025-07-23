@@ -39,7 +39,6 @@ SOFTWARE.
 
 #include <cstdint>
 #include <utility>
-#define BIGINT_STD_MOVE std::move
 
 #else
 #ifdef _MSC_VER
@@ -59,7 +58,6 @@ typedef short int16_t;
 typedef uint64_t uintmax_t;
 typedef int64_t intmax_t;
 #endif
-#define BIGINT_STD_MOVE
 #endif
 
 #if defined(_WIN64) || defined(_M_X64)
