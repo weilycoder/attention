@@ -57,7 +57,6 @@ std::tuple<size_t, Fraction, Fraction> solve_pi_pow_n(const Fraction &a, const F
   throw std::domain_error("No solution found within the limit of " + std::to_string(limit));
 }
 
-// \int_{0}^{1}\dfrac{x^{m}\left(a+bx^{2}\right)\left(\ln x^{-1}\right)^{n-1}}{1+x^{2}}\mathrm{d}x
 // x**m * (a + b*x^2) * ln(1/x)**(n-1) / (1 + x^2)
 std::string ans_to_sympy_pi_pow_n(size_t n, size_t m, const Fraction &a, const Fraction &b) {
   return "x**" + std::to_string(m) + " * (" + a.to_str() + " + " + b.to_str() + "*x**2) * ln(1/x)**" +
