@@ -27,11 +27,20 @@ solve <type> <B> <A> [<limit=64>]
 + `<A>` 是常数项系数，要求为整数；
 + `<limit>` 指定尝试构造积分 `<limit>` 次时停止。
 
-输出为给定构造的积分表达，例如，记指定的无理数为 $\alpha$，则保证输出的积分结果为 $A + B\alpha$。
-
 目前实现了 $3$ 类积分证明。
 
-输出积分的 Latex 不一定简洁美观，请自行调整；其中自然对数的 $\mathrm{e}$ 与微分 $\mathrm{d}x$ 中的 $\mathrm{d}$ 均为使用 `\mathrm` 的**正体符号**，可能对某些 Latex 解析程序有影响。
+输出设计上可以被 Python 的 sympy 解析，如果你希望得到 Latex 版本，可以使用 Python 转换，例如：
+
+```python
+import sympy
+print(sympy.latex(sympy.sympify(input()).simplify()))
+```
+
+项目编写了一个配套的 Python 转换脚本，可以使用
+
+```bash
+solve <args...> | python format_output.py
+```
 
 ### A + B * Pi
 
@@ -49,8 +58,15 @@ solve pi -4738167652 14885392687
 
 输出：
 
+```text
+Bounds   : 0, 1
+Function : x**23 * (1-x)**23 * (629602886415/653752 + -1184541913/256*x + 116946872953727/20920064*x**2) / (1 + x**2)
+```
+
+即
+
 $$
-\int_{0}^{1}\dfrac{x^{23}\left(1-x\right)^{23}\left(\dfrac{629602886415}{653752}-\dfrac{1184541913}{256}x+\dfrac{116946872953727}{20920064}x^{2}\right)}{1+x^{2}}\mathrm{d}x
+\int_{0}^{1} \frac{x^{23} \left(x - 1\right)^{23} \left(- 116946872953727 x^{2} + 96799580588447 x - 20147292365280\right)}{20920064 \left(x^{2} + 1\right)} \mathrm{d}x
 $$
 
 显然积分结果为 $14885392687-4738167652\pi$ 且被积函数在 $[0,1]$ 上恒非负。
@@ -71,8 +87,15 @@ solve e -71 193
 
 输出：
 
+```text
+Bounds   : 0, 1
+Function : x**3 * (1-x)**3 * (1/6 + 0*x) * exp(x)
+```
+
+即
+
 $$
-\int_{0}^{1}\dfrac{1}{6}x^{3}\left(1-x\right)^{3}\mathrm{e}^{x}\mathrm{d}x
+\int_{0}^{1} - \frac{x^{3} \left(x - 1\right)^{3} e^{x}}{6} \mathrm{d}x
 $$
 
 ### A + B * Pi^n
@@ -91,8 +114,15 @@ solve pi_power_3 1 -31
 
 输出：
 
+```text
+Bounds   : 0, 1
+Function : x**12 * (1091239949453/83203139250 + -240010278547/83203139250*x**2) * ln(1/x)**2 / (1 + x**2)
+```
+
+即
+
 $$
-\int_{0}^{1}\dfrac{x^{12}\left(\ln x^{-1}\right)^{2}\left(\dfrac{1091239949453}{83203139250}-\dfrac{240010278547}{83203139250}x^{2}\right)}{1+x^{2}}\mathrm{d}x
+\int_{0}^{1} \frac{x^{12} \left(1091239949453 - 240010278547 x^{2}\right) \log{\left(\frac{1}{x} \right)}^{2}}{83203139250 \left(x^{2} + 1\right)} \mathrm{d}x
 $$
 
 欲证明
@@ -109,8 +139,13 @@ solve pi_power_2 5 -49
 
 输出：
 
+```text
+Bounds   : 0, 1
+Function : x**9 * (395/3 + -325/3*x**2) * ln(1/x)**1 / (1 + x**2)
+```
+
 $$
-\int_{0}^{1}\dfrac{x^{9}\left(\ln x^{-1}\right)\left(\dfrac{395}{3}-\dfrac{325}{3}x^{2}\right)}{1+x^{2}}\mathrm{d}x
+\int_{0}^{1} \frac{5 x^{9} \left(79 - 65 x^{2}\right) \log{\left(\frac{1}{x} \right)}}{3 \left(x^{2} + 1\right)} \mathrm{d}x
 $$
 
 ## License
