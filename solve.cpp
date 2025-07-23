@@ -29,14 +29,14 @@ int main(int argc, char *argv[]) {
 
     if (tp == "pi") {
       auto [n, a, b, c] = solve_pi(BigInt(argv[3]), BigInt(argv[2]), limit);
-      cout << ans_to_latex_pi(n, n, a, b, c) << endl;
+      cout << ans_to_sympy_pi(n, n, a, b, c) << endl;
     } else if (tp == "e") {
       auto [n, a, b] = solve_e(BigInt(argv[3]), BigInt(argv[2]), limit);
-      cout << ans_to_latex_e(n, n, a, b) << endl;
+      cout << ans_to_sympy_e(n, n, a, b) << endl;
     } else if (tp.length() > 9 && tp.substr(0, 9) == "pi_power_" && tp[9] > '0' && tp[9] <= '9') {
       size_t n = stoull(tp.substr(9));
       auto [m, a, b] = solve_pi_pow_n(BigInt(argv[3]), BigInt(argv[2]), n, limit);
-      cout << ans_to_latex_pi_pow_n(n, m, a, b) << endl;
+      cout << ans_to_sympy_pi_pow_n(n, m, a, b) << endl;
     } else {
       cerr << "Unknown type: " << tp << endl;
       return 1;

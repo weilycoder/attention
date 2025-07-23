@@ -48,13 +48,10 @@ std::tuple<size_t, Fraction, Fraction, Fraction> solve_pi(const Fraction &a, con
   throw std::domain_error("No solution found within the limit of " + std::to_string(limit));
 }
 
-// \int_{0}^{1}\dfrac{x^{n}\left(1-x\right)^{m}\left(a+bx+cx^{2}\right)}{1+x^{2}}\mathrm{d}x
-std::string ans_to_latex_pi(size_t n, size_t m, const Fraction &a, const Fraction &b, const Fraction &c) {
-  std::string F0 = power_latex("x", n) + power_latex("\\left(1-x\\right)", m);
-  std::string F1 = quadratic_latex(a, b, c, "x");
-  if (F1.length() < F0.length())
-    std::swap(F0, F1);
-  return "\\int_{0}^{1}\\dfrac{" + F0 + F1 + "}{1+x^{2}}\\mathrm{d}x";
+// x**n * (1-x)**m * (a + b*x + c*x^2) / (1 + x^2)
+std::string ans_to_sympy_pi(size_t n, size_t m, const Fraction &a, const Fraction &b, const Fraction &c) {
+  return "x**" + std::to_string(n) + " * (1-x)**" + std::to_string(m) + " * (" + a.to_str() + " + " +
+         b.to_str() + "*x + " + c.to_str() + "*x**2) / (1 + x**2)";
 }
 
 #endif // INTE_PI_HPP

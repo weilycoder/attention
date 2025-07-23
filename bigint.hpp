@@ -452,28 +452,6 @@ public:
     return out;
   }
 
-  std::string to_astr() const {
-    if (is_zero())
-      return "0";
-    std::string out;
-    int32_t d = 0;
-    for (size_t i = 0, j = 0;;) {
-      if (j < 1) {
-        if (i < size())
-          d += v[i];
-        else if (d == 0)
-          break;
-        j += 4, ++i;
-      }
-      out.push_back((d % 10) + '0');
-      d /= 10, j--;
-    }
-    while (out.size() > 1 && *out.rbegin() == '0')
-      out.erase(out.begin() + out.size() - 1);
-    std::reverse(out.begin(), out.end());
-    return out;
-  }
-
   int get_sign() const { return sign; }
   bool is_one() const { return v.size() == 1 && v[0] == 1 && sign == 1; }
   bool is_minus_one() const { return v.size() == 1 && v[0] == 1 && sign == -1; }

@@ -58,12 +58,10 @@ std::tuple<size_t, Fraction, Fraction> solve_pi_pow_n(const Fraction &a, const F
 }
 
 // \int_{0}^{1}\dfrac{x^{m}\left(a+bx^{2}\right)\left(\ln x^{-1}\right)^{n-1}}{1+x^{2}}\mathrm{d}x
-std::string ans_to_latex_pi_pow_n(size_t n, size_t m, const Fraction &a, const Fraction &b) {
-  std::string F0 = power_latex("x", m) + power_latex("\\left(\\ln x^{-1}\\right)", n - 1);
-  std::string F1 = linear_latex(a, b, "x^{2}");
-  if (F1.length() < F0.length())
-    std::swap(F0, F1);
-  return "\\int_{0}^{1}\\dfrac{" + F0 + F1 + "}{1+x^{2}}\\mathrm{d}x";
+// x**m * (a + b*x^2) * ln(1/x)**(n-1) / (1 + x^2)
+std::string ans_to_sympy_pi_pow_n(size_t n, size_t m, const Fraction &a, const Fraction &b) {
+  return "x**" + std::to_string(m) + " * (" + a.to_str() + " + " + b.to_str() + "*x**2) * ln(1/x)**" +
+         std::to_string(n - 1) + " / (1 + x**2)";
 }
 
 #endif // INTE_PI_POW_N_HPP

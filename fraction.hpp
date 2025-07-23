@@ -86,41 +86,6 @@ struct Fraction {
     return numerator.to_str() + "/" + denominator.to_str();
   }
   std::string to_str() const { return to_string(); }
-  std::string to_astr() const {
-    if (denominator.is_one())
-      return numerator.to_astr();
-    return numerator.to_astr() + "/" + denominator.to_astr();
-  }
-
-  std::string to_alatex(const std::string &frac = "\\frac") const {
-    if (denominator.is_one())
-      return numerator.to_astr();
-    return frac + "{" + numerator.to_astr() + "}{" + denominator.to_astr() + "}";
-  }
-  std::string to_latex(const std::string &frac = "\\frac") const {
-    return (is_negative() ? "-" : "") + to_alatex(frac);
-  }
-  std::string to_latex_sign(const std::string &frac = "\\frac") const {
-    return (is_negative() ? "-" : "+") + to_alatex(frac);
-  }
-  std::string to_latex_coeff(const std::string &var, const std::string &frac = "\\frac") const {
-    if (this->is_zero())
-      return "";
-    if (this->is_one())
-      return var;
-    if (this->is_minus_one())
-      return "-" + var;
-    return this->to_latex(frac) + var;
-  }
-  std::string to_latex_sign_coeff(const std::string &var, const std::string &frac = "\\frac") const {
-    if (this->is_zero())
-      return "";
-    if (this->is_one())
-      return "+" + var;
-    if (this->is_minus_one())
-      return "-" + var;
-    return (is_negative() ? "-" : "+") + this->to_alatex(frac) + var;
-  }
 };
 
 Fraction operator""_frac(unsigned long long num) { return Fraction(BigInt((uintmax_t)num)); }
