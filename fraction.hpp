@@ -20,6 +20,18 @@ struct Fraction {
       throw std::domain_error("Denominator cannot be zero.");
     simplify();
   }
+  explicit Fraction(const std::string &s) { from_str(s); }
+
+  Fraction &set(const BigInt &num) {
+    return this->numerator = num, this->denominator.set((uintmax_t)1), *this;
+  }
+
+  Fraction &set(const BigInt &num, const BigInt &den) {
+    this->numerator = num, this->denominator = den;
+    if (denominator.is_zero())
+      throw std::domain_error("Denominator cannot be zero.");
+    return simplify(), *this;
+  }
 
   void simplify() {
     BigInt gcd = find_gcd(numerator, denominator);
@@ -88,6 +100,13 @@ struct Fraction {
     return numerator.to_str() + "/" + denominator.to_str();
   }
   std::string to_str() const { return to_string(); }
+
+  Fraction &from_str(const std::string &input) {
+    size_t bar = input.find('/');
+    if (bar == std::string::npos)
+      return this->set(BigInt(input));
+    return this->set(BigInt(input.substr(0, bar)), BigInt(input.substr(bar + 1)));
+  }
 };
 
 Fraction operator""_frac(unsigned long long num) { return Fraction(BigInt((uintmax_t)num)); }
