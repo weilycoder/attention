@@ -27,17 +27,19 @@ int main(int argc, char *argv[]) {
       return 1;
     }
 
+    BigInt A(argv[3]), B(argv[2]);
+
     if (tp == "pi") {
-      auto [n, a, b, c] = solve_pi(BigInt(argv[3]), BigInt(argv[2]), limit);
+      auto [n, a, b, c] = solve_pi(A, B, limit);
       cout << "Bounds   : " << 0 << ", " << 1 << endl;
       cout << "Function : " << ans_to_sympy_pi(n, n, a, b, c) << endl;
     } else if (tp == "e") {
-      auto [n, a, b] = solve_e(BigInt(argv[3]), BigInt(argv[2]), limit);
+      auto [n, a, b] = solve_e(A, B, limit);
       cout << "Bounds   : " << 0 << ", " << 1 << endl;
       cout << "Function : " << ans_to_sympy_e(n, n, a, b) << endl;
     } else if (tp.length() > 9 && tp.substr(0, 9) == "pi_power_" && tp[9] > '0' && tp[9] <= '9') {
       size_t n = stoull(tp.substr(9));
-      auto [m, a, b] = solve_pi_pow_n(BigInt(argv[3]), BigInt(argv[2]), n, limit);
+      auto [m, a, b] = solve_pi_pow_n(A, B, n, limit);
       cout << "Bounds   : " << 0 << ", " << 1 << endl;
       cout << "Function : " << ans_to_sympy_pi_pow_n(n, m, a, b) << endl;
     } else {
