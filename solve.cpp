@@ -1,4 +1,5 @@
 #include "inte_e.hpp"
+#include "inte_e_power_q.hpp"
 #include "inte_pi.hpp"
 #include "inte_pi_pow_n.hpp"
 #include <iostream>
@@ -42,6 +43,12 @@ int main(int argc, char *argv[]) {
       auto [m, a, b] = solve_pi_pow_n(A, B, n, limit);
       cout << "Bounds   : " << 0 << ", " << 1 << endl;
       cout << "Function : " << ans_to_sympy_pi_pow_n(n, m, a, b) << endl;
+    } else if (tp.length() > 8 && tp.substr(0, 8) == "e_power_" &&
+               ((tp[8] > '0' && tp[8] <= '9') || tp[8] == '-')) {
+      Fraction q(tp.substr(8));
+      auto [n, a, b] = solve_e_power_q(A, B, q, limit);
+      cout << "Bounds   : " << 0 << ", " << 1 << endl;
+      cout << "Function : " << ans_to_sympy_e_power_q(n, n, a, b, q) << endl;
     } else {
       cerr << "Unknown type: " << tp << endl;
       return 1;
