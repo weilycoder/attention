@@ -71,7 +71,9 @@ struct Fraction {
   Fraction &operator-=(const Fraction &other) { return *this = *this - other; }
   Fraction &operator*=(const Fraction &other) { return *this = *this * other; }
   Fraction &operator/=(const Fraction &other) { return *this = *this / other; }
+  Fraction operator+() const { return *this; }
   Fraction operator-() const { return Fraction(-numerator, denominator); }
+  Fraction operator~() const { return Fraction(denominator, numerator); }
 
   bool is_zero() const { return numerator.is_zero(); }
   bool is_one() const { return numerator.is_one() && denominator.is_one(); }
