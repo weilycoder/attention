@@ -100,6 +100,8 @@ $$
 
 ### A + B * Pi^n
 
+*这里 n 为大于 1 的正整数。*
+
 欲证明
 
 $$
@@ -146,6 +148,81 @@ Function : x**9 * (395/3 + -325/3*x**2) * ln(1/x)**1 / (1 + x**2)
 
 $$
 \int_{0}^{1} \frac{5 x^{9} \left(79 - 65 x^{2}\right) \log{\left(\frac{1}{x} \right)}}{3 \left(x^{2} + 1\right)} \mathrm{d}x
+$$
+
+### A + B * E^q
+
+*这里 q 为有理数。*
+
+欲证明
+
+$$
+\mathrm{e}^{3}-20\gt 0
+$$
+
+运行
+
+```bash
+solve e_power_3 1 -20
+```
+
+输出
+
+```text
+Bounds   : 0, 1
+Function : x**4 * (1-x)**4 * (75/8 + 21/8*x) * exp(3 * x)
+```
+
+$$
+\int_{0}^{1} \frac{3 x^{4} \left(x - 1\right)^{4} \left(7 x + 25\right) e^{3 x}}{8} \mathrm{d}x
+$$
+
+欲证明
+
+$$
+25\exp(-1) - 9 \gt 0
+$$
+
+运行
+
+```bash
+solve e_power_-1 25 -9
+```
+
+输出
+
+```text
+Bounds   : 0, 1
+Function : x**1 * (1-x)**1 * (1 + 2*x) * exp(-1 * x)
+```
+
+$$
+\int_{0}^{1} x \left(- 2 x^{2} + x + 1\right) e^{- x} \mathrm{d}x
+$$
+
+欲证明
+
+$$
+25\exp\left(\dfrac{1}{2}\right) - 41 \gt 0
+$$
+
+运行
+
+```bash
+solve e_power_1/2 25 -41
+```
+
+输出
+
+```text
+Bounds   : 0, 1
+Function : x**1 * (1-x)**1 * (3/4 + 1/2*x) * exp(1/2 * x)
+```
+
+即
+
+$$
+\int_{0}^{1} \frac{x \left(- 2 x^{2} - x + 3\right) e^{\frac{x}{2}}}{4} \mathrm{d}x
 $$
 
 ## License
