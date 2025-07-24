@@ -1,4 +1,5 @@
 #include "inte/e.hpp"
+#include "inte/e_power_pi.hpp"
 #include "inte/e_power_q.hpp"
 #include "inte/pi.hpp"
 #include "inte/pi_power_n.hpp"
@@ -63,6 +64,10 @@ int main(int argc, char *argv[]) {
       auto [n, a, b] = solve_e(A, B, limit);
       cout << "Bounds   : " << bound_e.first << ", " << bound_e.second << endl;
       cout << "Function : " << ans_to_sympy_e(n, n, a, b) << endl;
+    } else if (tp == "e_power_pi") {
+      auto [n, a, b] = solve_e_power_pi(A, B, limit);
+      cout << "Bounds   : " << bound_e_power_pi.first << ", " << bound_e_power_pi.second << endl;
+      cout << "Function : " << ans_to_sympy_e_power_pi(n, n, a, b) << endl;
     } else if (const std::string str = match_uint("pi_power_", tp); !str.empty()) {
       size_t n = stoull(str);
       auto [m, a, b] = solve_pi_power_n(A, B, n, limit);
