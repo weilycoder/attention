@@ -3,6 +3,8 @@
 
 #include "../utils.hpp"
 
+const std::pair<std::string, std::string> bound_pi = {"0", "1"};
+
 // Integrate[P(x) / (1 + x^2), {x, 0, 1}] = A + B*ln(2) + C*pi
 std::tuple<Symbol, Symbol, Symbol> get_coeffs_pi(const Poly_s &func) {
   Poly_s deno = Poly_s({1_sym, 0_sym, 1_sym}); // 1 + x^2

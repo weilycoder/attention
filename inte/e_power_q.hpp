@@ -3,6 +3,8 @@
 
 #include "../utils.hpp"
 
+const std::pair<std::string, std::string> bound_e_power_q = {"0", "1"};
+
 // Integrate[P(x) * exp[x^q], {x, 0, 1}] = A + B*e^q
 std::pair<Symbol, Symbol> get_coeffs_e_power_q(const Poly_s &func, const Fraction &q) {
   const Fraction q_inv = ~q; // Inverse of q

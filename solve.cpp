@@ -35,22 +35,22 @@ int main(int argc, char *argv[]) {
 
     if (tp == "pi") {
       auto [n, a, b, c] = solve_pi(A, B, limit);
-      cout << "Bounds   : " << 0 << ", " << 1 << endl;
+      cout << "Bounds   : " << bound_pi.first << ", " << bound_pi.second << endl;
       cout << "Function : " << ans_to_sympy_pi(n, n, a, b, c) << endl;
     } else if (tp == "e") {
       auto [n, a, b] = solve_e(A, B, limit);
-      cout << "Bounds   : " << 0 << ", " << 1 << endl;
+      cout << "Bounds   : " << bound_e.first << ", " << bound_e.second << endl;
       cout << "Function : " << ans_to_sympy_e(n, n, a, b) << endl;
     } else if (tp.length() > 9 && tp.substr(0, 9) == "pi_power_" && tp[9] > '0' && tp[9] <= '9') {
       size_t n = stoull(tp.substr(9));
       auto [m, a, b] = solve_pi_power_n(A, B, n, limit);
-      cout << "Bounds   : " << 0 << ", " << 1 << endl;
+      cout << "Bounds   : " << bound_pi_power_n.first << ", " << bound_pi_power_n.second << endl;
       cout << "Function : " << ans_to_sympy_pi_power_n(n, m, a, b) << endl;
     } else if (tp.length() > 8 && tp.substr(0, 8) == "e_power_" &&
                ((tp[8] > '0' && tp[8] <= '9') || tp[8] == '-')) {
       Fraction q(tp.substr(8));
       auto [n, a, b] = solve_e_power_q(A, B, q, limit);
-      cout << "Bounds   : " << 0 << ", " << 1 << endl;
+      cout << "Bounds   : " << bound_e_power_q.first << ", " << bound_e_power_q.second << endl;
       cout << "Function : " << ans_to_sympy_e_power_q(n, n, a, b, q) << endl;
     } else {
       cerr << "Unknown type: " << tp << endl;

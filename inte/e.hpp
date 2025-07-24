@@ -3,6 +3,8 @@
 
 #include "../utils.hpp"
 
+const std::pair<std::string, std::string> bound_e = {"0", "1"};
+
 // Integrate[P(x) * exp[x], {x, 0, 1}] = A + B*e
 std::pair<Symbol, Symbol> get_coeffs_e(const Poly_s &func) {
   static const BigInt one(1);

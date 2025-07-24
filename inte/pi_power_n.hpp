@@ -4,6 +4,8 @@
 #include "../maths.hpp"
 #include "../utils.hpp"
 
+const std::pair<std::string, std::string> bound_pi_power_n = {"0", "1"};
+
 // Integrate[P(x) * ln[1/x]^(n-1) / (1 + x^2), {x, 0, 1}] = A + B * pi^n
 std::pair<Symbol, Symbol> get_coeffs_pi_power_n(const Poly_s &func, size_t n) {
   if (n == 0)
