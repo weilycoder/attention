@@ -12,6 +12,28 @@
 //       solve e_power_-1 25 -9
 //       solve e_power_1/2 25 -41
 
+std::string match_sint(const std::string &pattern, const std::string &input) {
+  if (input.length() <= pattern.length())
+    return "";
+  if (input.substr(0, pattern.length()) != pattern)
+    return "";
+  size_t pos = pattern.length();
+  if (input[pos] == '-' || (input[pos] >= '0' && input[pos] <= '9'))
+    return input.substr(pos);
+  return "";
+}
+
+std::string match_uint(const std::string &pattern, const std::string &input) {
+  if (input.length() <= pattern.length())
+    return "";
+  if (input.substr(0, pattern.length()) != pattern)
+    return "";
+  size_t pos = pattern.length();
+  if (input[pos] >= '0' && input[pos] <= '9')
+    return input.substr(pos);
+  return "";
+}
+
 int main(int argc, char *argv[]) {
   using namespace std;
 
@@ -41,14 +63,13 @@ int main(int argc, char *argv[]) {
       auto [n, a, b] = solve_e(A, B, limit);
       cout << "Bounds   : " << bound_e.first << ", " << bound_e.second << endl;
       cout << "Function : " << ans_to_sympy_e(n, n, a, b) << endl;
-    } else if (tp.length() > 9 && tp.substr(0, 9) == "pi_power_" && tp[9] > '0' && tp[9] <= '9') {
-      size_t n = stoull(tp.substr(9));
+    } else if (const std::string str = match_uint("pi_power_", tp); !str.empty()) {
+      size_t n = stoull(str);
       auto [m, a, b] = solve_pi_power_n(A, B, n, limit);
       cout << "Bounds   : " << bound_pi_power_n.first << ", " << bound_pi_power_n.second << endl;
       cout << "Function : " << ans_to_sympy_pi_power_n(n, m, a, b) << endl;
-    } else if (tp.length() > 8 && tp.substr(0, 8) == "e_power_" &&
-               ((tp[8] > '0' && tp[8] <= '9') || tp[8] == '-')) {
-      Fraction q(tp.substr(8));
+    } else if (const std::string str = match_sint("e_power_", tp); !str.empty()) {
+      Fraction q(str);
       auto [n, a, b] = solve_e_power_q(A, B, q, limit);
       cout << "Bounds   : " << bound_e_power_q.first << ", " << bound_e_power_q.second << endl;
       cout << "Function : " << ans_to_sympy_e_power_q(n, n, a, b, q) << endl;
