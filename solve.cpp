@@ -8,6 +8,9 @@
 //       solve e -71 193
 //       solve pi_power_2 5 -49
 //       solve pi_power_3 1 -31
+//       solve e_power_3 1 -20
+//       solve e_power_-1 25 -9
+//       solve e_power_1/2 25 -41
 
 int main(int argc, char *argv[]) {
   using namespace std;
