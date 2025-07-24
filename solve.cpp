@@ -12,6 +12,7 @@
 //       solve e_power_3 1 -20
 //       solve e_power_-1 25 -9
 //       solve e_power_1/2 25 -41
+//       solve e_power_pi 1 -23
 
 std::string match_sint(const std::string &pattern, const std::string &input) {
   if (input.length() <= pattern.length())
