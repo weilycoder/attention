@@ -1,7 +1,7 @@
 #ifndef INTE_PI_HPP
 #define INTE_PI_HPP
 
-#include "utils.hpp"
+#include "../utils.hpp"
 
 // Integrate[P(x) / (1 + x^2), {x, 0, 1}] = A + B*ln(2) + C*pi
 std::tuple<Symbol, Symbol, Symbol> get_coeffs_pi(const Poly_s &func) {

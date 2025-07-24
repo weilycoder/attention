@@ -1,8 +1,8 @@
 #ifndef INTE_PI_POW_N_HPP
 #define INTE_PI_POW_N_HPP
 
-#include "maths.hpp"
-#include "utils.hpp"
+#include "../maths.hpp"
+#include "../utils.hpp"
 
 // Integrate[P(x) * ln[1/x]^(n-1) / (1 + x^2), {x, 0, 1}] = A + B * pi^n
 std::pair<Symbol, Symbol> get_coeffs_pi_pow_n(const Poly_s &func, size_t n) {

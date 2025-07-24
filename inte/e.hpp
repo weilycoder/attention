@@ -1,7 +1,7 @@
 #ifndef INTE_E_HPP
 #define INTE_E_HPP
 
-#include "utils.hpp"
+#include "../utils.hpp"
 
 // Integrate[P(x) * exp[x], {x, 0, 1}] = A + B*e
 std::pair<Symbol, Symbol> get_coeffs_e(const Poly_s &func) {

@@ -1,7 +1,7 @@
-#include "inte_e.hpp"
-#include "inte_e_power_q.hpp"
-#include "inte_pi.hpp"
-#include "inte_pi_pow_n.hpp"
+#include "inte/e.hpp"
+#include "inte/e_power_q.hpp"
+#include "inte/pi.hpp"
+#include "inte/pi_pow_n.hpp"
 #include <iostream>
 
 // Test: solve pi -4738167652 14885392687

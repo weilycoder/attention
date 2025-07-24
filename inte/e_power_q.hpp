@@ -1,7 +1,7 @@
 #ifndef INTE_E_POWER_Q_HPP
 #define INTE_E_POWER_Q_HPP
 
-#include "utils.hpp"
+#include "../utils.hpp"
 
 // Integrate[P(x) * exp[x^q], {x, 0, 1}] = A + B*e^q
 std::pair<Symbol, Symbol> get_coeffs_e_power_q(const Poly_s &func, const Fraction &q) {
