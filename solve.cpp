@@ -1,7 +1,7 @@
 #include "inte/e.hpp"
 #include "inte/e_power_q.hpp"
 #include "inte/pi.hpp"
-#include "inte/pi_pow_n.hpp"
+#include "inte/pi_power_n.hpp"
 #include <iostream>
 
 // Test: solve pi -4738167652 14885392687
@@ -43,9 +43,9 @@ int main(int argc, char *argv[]) {
       cout << "Function : " << ans_to_sympy_e(n, n, a, b) << endl;
     } else if (tp.length() > 9 && tp.substr(0, 9) == "pi_power_" && tp[9] > '0' && tp[9] <= '9') {
       size_t n = stoull(tp.substr(9));
-      auto [m, a, b] = solve_pi_pow_n(A, B, n, limit);
+      auto [m, a, b] = solve_pi_power_n(A, B, n, limit);
       cout << "Bounds   : " << 0 << ", " << 1 << endl;
-      cout << "Function : " << ans_to_sympy_pi_pow_n(n, m, a, b) << endl;
+      cout << "Function : " << ans_to_sympy_pi_power_n(n, m, a, b) << endl;
     } else if (tp.length() > 8 && tp.substr(0, 8) == "e_power_" &&
                ((tp[8] > '0' && tp[8] <= '9') || tp[8] == '-')) {
       Fraction q(tp.substr(8));

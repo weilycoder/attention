@@ -5,7 +5,7 @@
 #include "../utils.hpp"
 
 // Integrate[P(x) * ln[1/x]^(n-1) / (1 + x^2), {x, 0, 1}] = A + B * pi^n
-std::pair<Symbol, Symbol> get_coeffs_pi_pow_n(const Poly_s &func, size_t n) {
+std::pair<Symbol, Symbol> get_coeffs_pi_power_n(const Poly_s &func, size_t n) {
   if (n == 0)
     throw std::domain_error("n must be greater than 1 for this function.");
   if (n == 1)
@@ -37,14 +37,14 @@ std::pair<Symbol, Symbol> get_coeffs_pi_pow_n(const Poly_s &func, size_t n) {
 }
 
 // a + b * pi^n >= 0
-std::tuple<size_t, Fraction, Fraction> solve_pi_pow_n(const Fraction &a, const Fraction &b, size_t n,
+std::tuple<size_t, Fraction, Fraction> solve_pi_power_n(const Fraction &a, const Fraction &b, size_t n,
                                                       size_t limit = 64) {
   Poly_s func{'a'_sym, 0_sym, 'b'_sym}; // a + b*x^2
   for (size_t m = 0; m <= limit; ++m, func.lshift()) {
     if (((m + n) & 1) == 0)
       continue; // Skip even m if n is odd, and vice versa
     // A + B * pi^n
-    auto [A, B] = get_coeffs_pi_pow_n(func, n);
+    auto [A, B] = get_coeffs_pi_power_n(func, n);
     A -= Symbol(a), B -= Symbol(b);
     try {
       auto [a, b] = solve_ab(A, B);
@@ -58,7 +58,7 @@ std::tuple<size_t, Fraction, Fraction> solve_pi_pow_n(const Fraction &a, const F
 }
 
 // x**m * (a + b*x^2) * ln(1/x)**(n-1) / (1 + x^2)
-std::string ans_to_sympy_pi_pow_n(size_t n, size_t m, const Fraction &a, const Fraction &b) {
+std::string ans_to_sympy_pi_power_n(size_t n, size_t m, const Fraction &a, const Fraction &b) {
   return "x**" + std::to_string(m) + " * (" + a.to_str() + " + " + b.to_str() + "*x**2) * ln(1/x)**" +
          std::to_string(n - 1) + " / (1 + x**2)";
 }
