@@ -1,5 +1,6 @@
 #include "inte/e.hpp"
 #include "inte/e_power_pi.hpp"
+#include "inte/e_power_pi_q.hpp"
 #include "inte/e_power_q.hpp"
 #include "inte/pi.hpp"
 #include "inte/pi_power_n.hpp"
@@ -13,6 +14,7 @@
 //       solve e_power_-1 25 -9
 //       solve e_power_1/2 25 -41
 //       solve e_power_pi 1 -23
+//       solve e_power_pi_2 1 -535
 
 std::string match_sint(const std::string &pattern, const std::string &input) {
   if (input.length() <= pattern.length())
@@ -79,6 +81,11 @@ int main(int argc, char *argv[]) {
       auto [n, a, b] = solve_e_power_q(A, B, q, limit);
       cout << "Bounds   : " << bound_e_power_q.first << ", " << bound_e_power_q.second << endl;
       cout << "Function : " << ans_to_sympy_e_power_q(n, n, a, b, q) << endl;
+    } else if (const std::string str = match_sint("e_power_pi_", tp); !str.empty()) {
+      Fraction q(str);
+      auto [n, a, b] = solve_e_power_pi_q(A, B, q, limit);
+      cout << "Bounds   : " << bound_e_power_pi_q.first << ", " << bound_e_power_pi_q.second << endl;
+      cout << "Function : " << ans_to_sympy_e_power_pi_q(n, n, a, b, q) << endl;
     } else {
       cerr << "Unknown type: " << tp << endl;
       return 1;
